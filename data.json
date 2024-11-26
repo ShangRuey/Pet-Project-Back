@@ -1,0 +1,190 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "username": "user1",
+      "password": "password1",
+      "nickname": "Nick1",
+      "email": "user1@example.com",
+      "phone": "1234567890",
+      "city": "City1",
+      "district": "District1",
+      "road": "Road1",
+      "address": "Address1"
+    },
+    {
+      "id": 2,
+      "username": "user2",
+      "password": "password2",
+      "nickname": "Nick2",
+      "email": "user2@example.com",
+      "phone": "0987654321",
+      "city": "City2",
+      "district": "District2",
+      "road": "Road2",
+      "address": "Address2"
+    }
+  ],
+  "products": [
+    {
+      "id": 1,
+      "name": "Product1",
+      "price": 100,
+      "stock": 10,
+      "image": "product1.jpg",
+      "description": "Description of Product1"
+    },
+    {
+      "id": 2,
+      "name": "Product2",
+      "price": 200,
+      "stock": 20,
+      "image": "product2.jpg",
+      "description": "Description of Product2"
+    },
+    {
+      "id": 3,
+      "name": "Product3",
+      "price": 300,
+      "stock": 30,
+      "image": "product3.jpg",
+      "description": "Description of Product3"
+    },
+    {
+      "id": 4,
+      "name": "Product4",
+      "price": 400,
+      "stock": 40,
+      "image": "product4.jpg",
+      "description": "Description of Product4"
+    },
+    {
+      "id": 5,
+      "name": "Product5",
+      "price": 500,
+      "stock": 50,
+      "image": "product5.jpg",
+      "description": "Description of Product5"
+    },
+    {
+      "id": 6,
+      "name": "Product6",
+      "price": 600,
+      "stock": 60,
+      "image": "product6.jpg",
+      "description": "Description of Product6"
+    },
+    {
+      "id": 7,
+      "name": "Product7",
+      "price": 700,
+      "stock": 70,
+      "image": "product7.jpg",
+      "description": "Description of Product7"
+    },
+    {
+      "id": 8,
+      "name": "Product8",
+      "price": 800,
+      "stock": 80,
+      "image": "product8.jpg",
+      "description": "Description of Product8"
+    },
+    {
+      "id": 9,
+      "name": "Product9",
+      "price": 900,
+      "stock": 90,
+      "image": "product9.jpg",
+      "description": "Description of Product9"
+    },
+    {
+      "id": 10,
+      "name": "Product10",
+      "price": 1000,
+      "stock": 100,
+      "image": "product10.jpg",
+      "description": "Description of Product10"
+    },
+    {
+      "id": 11,
+      "name": "Product11",
+      "price": 1100,
+      "stock": 110,
+      "image": "product11.jpg",
+      "description": "Description of Product11"
+    },
+    {
+      "id": 12,
+      "name": "Product12",
+      "price": 1200,
+      "stock": 120,
+      "image": "product12.jpg",
+      "description": "Description of Product12"
+    },
+    {
+      "id": 13,
+      "name": "Product13",
+      "price": 1300,
+      "stock": 130,
+      "image": "product13.jpg",
+      "description": "Description of Product13"
+    },
+    {
+      "id": 14,
+      "name": "Product14",
+      "price": 1400,
+      "stock": 140,
+      "image": "product14.jpg",
+      "description": "Description of Product14"
+    },
+    {
+      "id": 15,
+      "name": "Product15",
+      "price": 1500,
+      "stock": 150,
+      "image": "product15.jpg",
+      "description": "Description of Product15"
+    },
+    {
+      "id": 16,
+      "name": "Product16",
+      "price": 1600,
+      "stock": 160,
+      "image": "product16.jpg",
+      "description": "Description of Product16"
+    },
+    {
+      "id": 17,
+      "name": "Product17",
+      "price": 1700,
+      "stock": 170,
+      "image": "product17.jpg",
+      "description": "Description of Product17"
+    },
+    {
+      "id": 18,
+      "name": "Product18",
+      "price": 1800,
+      "stock": 180,
+      "image": "product18.jpg",
+      "description": "Description of Product18"
+    },
+    {
+      "id": 19,
+      "name": "Product19",
+      "price": 1900,
+      "stock": 190,
+      "image": "product19.jpg",
+      "description": "Description of Product19"
+    },
+    {
+      "id": 20,
+      "name": "Product20",
+      "price": 2000,
+      "stock": 200,
+      "image": "product20.jpg",
+      "description": "Description of Product20"
+    }
+  ]
+}
