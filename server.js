@@ -33,8 +33,8 @@ app.post("/login", (req, res) => {
   if (user) {
     const token = jwt.sign({ userId: user.id }, SECRET_KEY);
     res.cookie("token", token, {
-      httpOnly: false, // 確保 Cookie 可以被 JavaScript 訪問
-      secure: false, // 在開發環境中設置為 false，生產環境中設置為 true 並使用 HTTPS
+      httpOnly: false,
+      secure: false,
       sameSite: "strict",
     });
     res.json({ token, message: "Login successful" });
@@ -45,7 +45,7 @@ app.post("/login", (req, res) => {
 
 // 新增一個登出路由來清除 Cookies
 app.post("/logout", (req, res) => {
-  res.clearCookie("token"); // 清除名為 'token' 的 Cookie
+  res.clearCookie("token");
   res.json({ message: "Logout successful" });
 });
 
@@ -78,15 +78,40 @@ app.post("/update-password", (req, res) => {
   }
 
   users[userIndex].password = newPassword;
-  fs.writeFileSync("./data.json", JSON.stringify(data, null, 2)); // 保存到文件
+  fs.writeFileSync("./data.json", JSON.stringify(data, null, 2));
 
-  // 清除 Cookies 以強制登出
   res.clearCookie("token");
   res.json({ message: "Password updated successfully" });
 });
 
+// Register new user
+app.post("/register", (req, res) => {
+  const { username, password, fullName, email, phone, address } = req.body;
+
+  // 檢查是否已有相同的用戶名
+  const existingUser = users.find((u) => u.username === username);
+  if (existingUser) {
+    return res.status(400).json({ message: "Username already exists" });
+  }
+
+  // 新增用戶資料
+  const newUser = {
+    id: users.length + 1,
+    username,
+    password,
+    name: fullName,
+    email,
+    phone,
+    address,
+  };
+  users.push(newUser);
+  fs.writeFileSync("./data.json", JSON.stringify(data, null, 2));
+
+  res.status(201).json({ message: "User registered successfully" });
+});
+
 app.get("/check-auth", authenticateToken, (req, res) => {
-  res.sendStatus(200); // 如果經過 authenticateToken 驗證，回應 200
+  res.sendStatus(200);
 });
 
 app.listen(PORT, () => {
