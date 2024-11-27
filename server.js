@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken");
 const bodyParser = require("body-parser");
 const fs = require("fs");
 const cors = require("cors");
-const cookieParser = require("cookie-parser"); // 引入 cookie-parser 套件
+const cookieParser = require("cookie-parser");
 
 const app = express();
 const PORT = 5000;
@@ -11,20 +11,17 @@ const SECRET_KEY = "your_secret_key";
 
 app.use(bodyParser.json());
 
-// 設置 CORS 配置
 app.use(
   cors({
-    origin: "http://localhost:5173", // 指定允許的來源
-    credentials: true, // 允許攜帶憑證（cookie）
+    origin: "http://localhost:5173",
+    credentials: true,
   })
 );
 
-app.use(cookieParser()); // 啟用 cookie-parser 中間件
+app.use(cookieParser());
 
-// Load users and products data
 const data = JSON.parse(fs.readFileSync("./data.json", "utf8"));
 const users = data.users;
-const products = data.products;
 
 // Authenticate user and generate JWT token
 app.post("/login", (req, res) => {
@@ -34,15 +31,13 @@ app.post("/login", (req, res) => {
   );
 
   if (user) {
-    const token = jwt.sign({ userId: user.id }, SECRET_KEY, {
-      expiresIn: "1h",
-    });
+    const token = jwt.sign({ userId: user.id }, SECRET_KEY);
     res.cookie("token", token, {
-      httpOnly: true,
-      secure: true,
+      httpOnly: false, // 確保 Cookie 可以被 JavaScript 訪問
+      secure: false, // 在開發環境中設置為 false，生產環境中設置為 true 並使用 HTTPS
       sameSite: "strict",
-    }); // 設置 cookie
-    res.json({ message: "Login successful" });
+    });
+    res.json({ token, message: "Login successful" });
   } else {
     res.status(401).json({ message: "Invalid username or password" });
   }
@@ -67,6 +62,28 @@ const authenticateToken = (req, res, next) => {
     next();
   });
 };
+
+// 更新密碼
+app.post("/update-password", (req, res) => {
+  const { username, phone, newPassword } = req.body;
+
+  const userIndex = users.findIndex(
+    (u) => u.username === username && u.phone === phone
+  );
+
+  if (userIndex === -1) {
+    return res
+      .status(404)
+      .json({ message: "User not found or phone number does not match" });
+  }
+
+  users[userIndex].password = newPassword;
+  fs.writeFileSync("./data.json", JSON.stringify(data, null, 2)); // 保存到文件
+
+  // 清除 Cookies 以強制登出
+  res.clearCookie("token");
+  res.json({ message: "Password updated successfully" });
+});
 
 app.get("/check-auth", authenticateToken, (req, res) => {
   res.sendStatus(200); // 如果經過 authenticateToken 驗證，回應 200
