@@ -10,14 +10,12 @@ const PORT = 5000;
 const SECRET_KEY = "your_secret_key";
 
 app.use(bodyParser.json());
-
 app.use(
   cors({
     origin: "http://localhost:5173",
     credentials: true,
   })
 );
-
 app.use(cookieParser());
 
 const data = JSON.parse(fs.readFileSync("./data.json", "utf8"));
@@ -66,7 +64,6 @@ const authenticateToken = (req, res, next) => {
 // 更新密碼
 app.post("/update-password", (req, res) => {
   const { username, phone, newPassword } = req.body;
-
   const userIndex = users.findIndex(
     (u) => u.username === username && u.phone === phone
   );
@@ -79,14 +76,13 @@ app.post("/update-password", (req, res) => {
 
   users[userIndex].password = newPassword;
   fs.writeFileSync("./data.json", JSON.stringify(data, null, 2));
-
   res.clearCookie("token");
   res.json({ message: "Password updated successfully" });
 });
 
 // Register new user
 app.post("/register", (req, res) => {
-  const { username, password, fullName, email, phone, address } = req.body;
+  const { username, password, fullname, email, phone, address } = req.body;
 
   // 檢查是否已有相同的用戶名
   const existingUser = users.find((u) => u.username === username);
@@ -99,15 +95,51 @@ app.post("/register", (req, res) => {
     id: users.length + 1,
     username,
     password,
-    name: fullName,
+    fullname,
     email,
     phone,
     address,
   };
   users.push(newUser);
   fs.writeFileSync("./data.json", JSON.stringify(data, null, 2));
-
   res.status(201).json({ message: "User registered successfully" });
+});
+
+// 取得會員資料
+app.get("/member-data", authenticateToken, (req, res) => {
+  const userId = req.user.userId;
+  const user = users.find((u) => u.id === userId);
+
+  if (user) {
+    res.json({
+      username: user.username,
+      fullname: user.fullname,
+      email: user.email,
+      phone: user.phone,
+      address: user.address,
+    });
+  } else {
+    res.status(404).json({ message: "User not found" });
+  }
+});
+
+// 更新用戶資料
+app.put("/update-member", authenticateToken, (req, res) => {
+  const userId = req.user.userId;
+  const { email, phone, address, fullname } = req.body;
+  const userIndex = users.findIndex((u) => u.id === userId);
+
+  if (userIndex === -1) {
+    return res.status(404).json({ message: "User not found" });
+  }
+
+  users[userIndex].email = email;
+  users[userIndex].phone = phone;
+  users[userIndex].address = address;
+  users[userIndex].fullname = fullname;
+  fs.writeFileSync("./data.json", JSON.stringify(data, null, 2));
+
+  res.json({ message: "Member updated successfully" });
 });
 
 app.get("/check-auth", authenticateToken, (req, res) => {
