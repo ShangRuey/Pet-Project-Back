@@ -4,6 +4,9 @@ const bodyParser = require("body-parser");
 const fs = require("fs");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
+const http = require("http");
+const { Server } = require("socket.io");
+const schedule = require("node-schedule"); // 引入 node-schedule 模組
 
 const app = express();
 const PORT = 5000;
@@ -146,6 +149,51 @@ app.get("/check-auth", authenticateToken, (req, res) => {
   res.sendStatus(200);
 });
 
-app.listen(PORT, () => {
+// 初始化聊天訊息文件
+const chatDataFile = "./chatData.json";
+if (!fs.existsSync(chatDataFile)) {
+  fs.writeFileSync(chatDataFile, JSON.stringify({ messages: [] }, null, 2));
+}
+
+// 定期清除14天前的訊息
+const clearOldMessages = () => {
+  const now = new Date();
+  const data = JSON.parse(fs.readFileSync(chatDataFile, "utf8"));
+  data.messages = data.messages.filter(
+    (message) =>
+      new Date(message.timestamp) >= new Date(now - 14 * 24 * 60 * 60 * 1000)
+  );
+  fs.writeFileSync(chatDataFile, JSON.stringify(data, null, 2));
+};
+
+// 設置一個每天凌晨運行的定時任務
+schedule.scheduleJob("0 0 * * *", clearOldMessages);
+
+// 加載歷史訊息
+app.get("/messages", (req, res) => {
+  const data = JSON.parse(fs.readFileSync(chatDataFile, "utf8"));
+  res.json(data.messages);
+});
+
+// WebSocket 部分
+const server = http.createServer(app);
+const io = new Server(server, {
+  cors: {
+    origin: "http://localhost:5173",
+    methods: ["GET", "POST"],
+  },
+});
+
+io.on("connection", (socket) => {
+  socket.on("message", (message) => {
+    const data = JSON.parse(fs.readFileSync(chatDataFile, "utf8"));
+    data.messages.push(message);
+    fs.writeFileSync(chatDataFile, JSON.stringify(data, null, 2));
+
+    io.emit("message", message);
+  });
+});
+
+server.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
 });
