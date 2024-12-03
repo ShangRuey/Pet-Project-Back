@@ -6,7 +6,7 @@ const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const http = require("http");
 const { Server } = require("socket.io");
-const schedule = require("node-schedule"); // 引入 node-schedule 模組
+const schedule = require("node-schedule");
 
 const app = express();
 const PORT = 5000;
@@ -23,6 +23,7 @@ app.use(cookieParser());
 
 const data = JSON.parse(fs.readFileSync("./data.json", "utf8"));
 const users = data.users;
+const carts = data.carts;
 
 // Authenticate user and generate JWT token
 app.post("/login", (req, res) => {
@@ -81,6 +82,11 @@ app.post("/update-password", (req, res) => {
   fs.writeFileSync("./data.json", JSON.stringify(data, null, 2));
   res.clearCookie("token");
   res.json({ message: "Password updated successfully" });
+});
+
+// 回傳所有產品
+app.get("/products", (req, res) => {
+  res.json(data.products);
 });
 
 // Register new user
@@ -145,8 +151,64 @@ app.put("/update-member", authenticateToken, (req, res) => {
   res.json({ message: "Member updated successfully" });
 });
 
-app.get("/check-auth", authenticateToken, (req, res) => {
-  res.sendStatus(200);
+// 獲取用戶購物車資料
+app.get("/cart", authenticateToken, (req, res) => {
+  const userId = req.user.userId;
+  const userCart = carts.find((cart) => cart.userId === userId);
+
+  if (userCart) {
+    res.json(userCart.items);
+  } else {
+    res.json([]);
+  }
+});
+
+// 新增或更新購物車項目
+app.post("/cart", authenticateToken, (req, res) => {
+  const userId = req.user.userId;
+  const { items } = req.body;
+  const userCartIndex = carts.findIndex((cart) => cart.userId === userId);
+
+  if (userCartIndex > -1) {
+    carts[userCartIndex].items = items;
+  } else {
+    carts.push({ userId, items });
+  }
+
+  fs.writeFileSync("./data.json", JSON.stringify(data, null, 2));
+  res.json({ message: "購物車更新成功" });
+});
+
+// 結帳處理
+app.post("/checkout", authenticateToken, (req, res) => {
+  const { cartItems } = req.body;
+  const products = data.products;
+
+  // 檢查庫存是否充足
+  for (let item of cartItems) {
+    const product = products.find((p) => p.id === item.id);
+    if (!product || product.stock < item.amount) {
+      return res.status(400).json({ message: `庫存不足: ${item.name}` });
+    }
+  }
+
+  // 更新庫存
+  for (let item of cartItems) {
+    const product = products.find((p) => p.id === item.id);
+    product.stock -= item.amount;
+  }
+
+  // 清空購物車
+  const userId = req.user.userId;
+  const userCartIndex = carts.findIndex((cart) => cart.userId === userId);
+  if (userCartIndex > -1) {
+    carts[userCartIndex].items = [];
+  }
+
+  // 保存更新後的資料
+  fs.writeFileSync("./data.json", JSON.stringify(data, null, 2));
+
+  res.json({ message: "結帳成功" });
 });
 
 // 初始化聊天訊息文件
