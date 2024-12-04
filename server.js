@@ -24,6 +24,8 @@ app.use(cookieParser());
 const data = JSON.parse(fs.readFileSync("./data.json", "utf8"));
 const users = data.users;
 const carts = data.carts;
+const adoptionRequests = data.adoptionRequests || [];
+const orders = data.orders || [];
 
 // Authenticate user and generate JWT token
 app.post("/login", (req, res) => {
@@ -33,10 +35,12 @@ app.post("/login", (req, res) => {
   );
 
   if (user) {
-    const token = jwt.sign({ userId: user.id }, SECRET_KEY);
+    const token = jwt.sign({ userId: user.id }, SECRET_KEY, {
+      expiresIn: "1h",
+    });
     res.cookie("token", token, {
-      httpOnly: false,
-      secure: false,
+      httpOnly: true,
+      secure: false, // 在開發時設為 false，生產環境中設為 true
       sameSite: "strict",
     });
     res.json({ token, message: "Login successful" });
@@ -88,7 +92,6 @@ app.post("/update-password", (req, res) => {
 app.get("/products", (req, res) => {
   res.json(data.products);
 });
-
 // Register new user
 app.post("/register", (req, res) => {
   const { username, password, fullname, email, phone, address } = req.body;
@@ -121,6 +124,7 @@ app.get("/member-data", authenticateToken, (req, res) => {
 
   if (user) {
     res.json({
+      id: user.id,
       username: user.username,
       fullname: user.fullname,
       email: user.email,
@@ -162,7 +166,6 @@ app.get("/cart", authenticateToken, (req, res) => {
     res.json([]);
   }
 });
-
 // 新增或更新購物車項目
 app.post("/cart", authenticateToken, (req, res) => {
   const userId = req.user.userId;
@@ -198,8 +201,35 @@ app.post("/checkout", authenticateToken, (req, res) => {
     product.stock -= item.amount;
   }
 
-  // 清空購物車
+  // 紀錄訂單
   const userId = req.user.userId;
+  const user = users.find((u) => u.id === userId);
+  const orderItems = cartItems.map((item) => ({
+    productId: item.id,
+    name: item.name,
+    price: item.price,
+    amount: item.amount,
+  }));
+  const totalPrice = orderItems.reduce(
+    (sum, item) => sum + item.price * item.amount,
+    0
+  );
+  const newOrder = {
+    orderId: orders.length + 1,
+    userId: user.id,
+    items: orderItems,
+    totalPrice,
+    orderDate: new Date().toISOString(),
+    status: "completed",
+    shippingDetails: {
+      address: user.address,
+      phone: user.phone,
+      email: user.email,
+    },
+  };
+  orders.push(newOrder);
+
+  // 清空購物車
   const userCartIndex = carts.findIndex((cart) => cart.userId === userId);
   if (userCartIndex > -1) {
     carts[userCartIndex].items = [];
@@ -211,6 +241,10 @@ app.post("/checkout", authenticateToken, (req, res) => {
   res.json({ message: "結帳成功" });
 });
 
+// 確認 JWT token 是否有效的路由
+app.get("/check-auth", authenticateToken, (req, res) => {
+  res.sendStatus(200); // 如果 token 有效，返回 200 狀態碼
+});
 // 初始化聊天訊息文件
 const chatDataFile = "./chatData.json";
 if (!fs.existsSync(chatDataFile)) {
@@ -253,6 +287,39 @@ io.on("connection", (socket) => {
     fs.writeFileSync(chatDataFile, JSON.stringify(data, null, 2));
 
     io.emit("message", message);
+  });
+});
+// 設定處理認養請求的路由
+app.post("/adopt", authenticateToken, (req, res) => {
+  const { userId, animalId } = req.body;
+  const user = users.find((u) => u.id === userId);
+
+  if (!user) {
+    return res.status(404).json({ message: "User not found" });
+  }
+
+  // 確保用戶尚未申請認養過該動物
+  const existingRequest = adoptionRequests.find(
+    (request) => request.userId === userId && request.animalId === animalId
+  );
+  if (existingRequest) {
+    return res
+      .status(400)
+      .json({ message: "You have already applied to adopt this animal" });
+  }
+
+  // 新增認養請求
+  const newRequest = {
+    userId,
+    animalId,
+    timestamp: new Date().toISOString(),
+  };
+  adoptionRequests.push(newRequest);
+  fs.writeFileSync("./data.json", JSON.stringify(data, null, 2));
+
+  res.json({
+    success: true,
+    message: "Adoption request submitted successfully",
   });
 });
 
