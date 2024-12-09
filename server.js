@@ -36,7 +36,7 @@ app.post("/login", (req, res) => {
 
   if (user) {
     const token = jwt.sign({ userId: user.id }, SECRET_KEY, {
-      expiresIn: "1h",
+      expiresIn: "30d",
     });
     res.cookie("token", token, {
       httpOnly: true,
