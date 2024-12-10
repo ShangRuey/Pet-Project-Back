@@ -4,187 +4,372 @@
       "id": 1,
       "username": "user1",
       "password": "password1",
-      "nickname": "Nick1",
+      "fullname": "NickYu",
       "email": "user1@example.com",
-      "phone": "1234567890",
-      "city": "City1",
-      "district": "District1",
-      "road": "Road1",
-      "address": "Address1"
+      "phone": "0987654321",
+      "address": "Address2"
     },
     {
       "id": 2,
       "username": "user2",
-      "password": "password2",
-      "nickname": "Nick2",
+      "password": "5555",
+      "fullname": "安安YU",
       "email": "user2@example.com",
       "phone": "0987654321",
-      "city": "City2",
-      "district": "District2",
-      "road": "Road2",
-      "address": "Address2"
+      "address": "Address3"
+    },
+    {
+      "id": 3,
+      "username": "user3",
+      "password": "3333",
+      "fullname": "林阿民安安安安",
+      "email": null,
+      "phone": "0987654321",
+      "address": "基隆市麥金路155之7號1樓"
+    },
+    {
+      "id": 4,
+      "username": "user4",
+      "password": "4444",
+      "fullname": "林阿民",
+      "email": "test@example.com",
+      "phone": "0987654321",
+      "address": "sadasdasd"
+    },
+    {
+      "id": 5,
+      "username": "user5",
+      "password": "5555",
+      "fullname": "林阿民民民民",
+      "email": "test@example.com",
+      "phone": "0987654321",
+      "address": "sadasdasd"
+    },
+    {
+      "id": 6,
+      "username": "inc1227",
+      "password": "inc852963",
+      "email": "leader60920@gmail.com",
+      "phone": "0963282344",
+      "address": "123"
+    },
+    {
+      "id": 7,
+      "username": "inc1228",
+      "password": "inc1228",
+      "fullname": "安安安",
+      "email": "test@example.com",
+      "phone": "0987654321",
+      "address": "asdasdasd"
     }
   ],
   "products": [
     {
       "id": 1,
-      "name": "Product1",
+      "name": "清燉-紐西蘭水鹿口味(75G/罐)",
       "price": 100,
-      "stock": 10,
-      "image": "product1.jpg",
-      "description": "Description of Product1"
+      "stock": 8,
+      "image": "/images/Product75g/NewDeer.jpg",
+      "description": "75克/罐，未開罐可常溫保存兩年，開罐後請冰冷藏並盡速使用完畢。成分：紐西蘭鹿肉、帶骨放飼雞腿、土雞心、土雞肝、綜合維生素(A、B1、B2、B6、D3、B12、C、E、K1)、牛磺酸",
+      "brandId": "1",
+      "category": "清燉"
     },
     {
       "id": 2,
-      "name": "Product2",
+      "name": "清燉-兔肉口味(75G/罐)",
       "price": 200,
-      "stock": 20,
-      "image": "product2.jpg",
-      "description": "Description of Product2"
+      "stock": 12,
+      "image": "/images/Product75g/Rabbit.jpg",
+      "description": "75克/罐，未開罐可常溫保存兩年，開罐後請冰冷藏並盡速使用完畢。成分：整隻兔、帶骨放飼雞腿、土雞心、土雞肝、綜合維生素(A、B1、B2、B6、D3、B12、C、E、K1)、牛磺酸",
+      "brandId": "1",
+      "category": "清燉"
     },
     {
       "id": 3,
-      "name": "Product3",
+      "name": "清燉-鹿野土雞口味(75G/罐)",
       "price": 300,
       "stock": 30,
-      "image": "product3.jpg",
-      "description": "Description of Product3"
+      "image": "/images/Product75g/WildChicken.jpg",
+      "description": "75克/罐，未開罐可常溫保存兩年，開罐後請冰冷藏並盡速使用完畢。成分：整隻土雞、土雞心、土雞肝、維他命B1、牛磺酸",
+      "brandId": "1",
+      "category": "清燉"
     },
     {
       "id": 4,
-      "name": "Product4",
+      "name": "清燉-烏骨雞口味(75G/罐)",
       "price": 400,
       "stock": 40,
-      "image": "product4.jpg",
-      "description": "Description of Product4"
+      "image": "/images/Product75g/BlackChicken.jpg",
+      "description": "75克/罐，未開罐可常溫保存兩年，開罐後請冰冷藏並盡速使用完畢。成分：整隻烏骨雞、烏骨雞心、土雞肝、維他命B1、牛磺酸",
+      "brandId": "1",
+      "category": "清燉"
     },
     {
       "id": 5,
-      "name": "Product5",
+      "name": "清燉-阿拉斯加野生鮭口味(75G/罐)",
       "price": 500,
       "stock": 50,
-      "image": "product5.jpg",
-      "description": "Description of Product5"
+      "image": "/images/Product75g/SamFish.jpg",
+      "description": "75克/罐，未開罐可常溫保存兩年，開罐後請冰冷藏並盡速使用完畢。成分：阿拉斯加野生白鮭、放飼帶骨雞腿、雞心、雞肝、維他命B1、牛磺酸",
+      "brandId": "1",
+      "category": "清燉"
     },
     {
       "id": 6,
-      "name": "Product6",
+      "name": "清燉-紐西蘭草飼牛口味(75G/罐)",
       "price": 600,
       "stock": 60,
-      "image": "product6.jpg",
-      "description": "Description of Product6"
+      "image": "/images/Product75g/NewCow.jpg",
+      "description": "75克/罐，未開罐可常溫保存兩年，開罐後請冰冷藏並盡速使用完畢。成分：紐西蘭草飼牛肉、雞骨、牛軟骨、牛心、牛肝、牛腎、維他命B1、牛磺酸",
+      "brandId": "1",
+      "category": "清燉"
     },
     {
       "id": 7,
-      "name": "Product7",
+      "name": "功夫-土雞煲(130G/罐)",
       "price": 700,
       "stock": 70,
-      "image": "product7.jpg",
-      "description": "Description of Product7"
+      "image": "/images/Product130g/KongChicken.jpg",
+      "description": "130克/罐，未開罐可常溫保存兩年，開罐後請冰冷藏並盡速使用完畢。成分：整隻土雞、土雞心、土雞肝、維他命B1、牛磺酸",
+      "brandId": "1",
+      "category": "功夫"
     },
     {
       "id": 8,
-      "name": "Product8",
+      "name": "功夫-鴨肉煲(130G/罐)",
       "price": 800,
       "stock": 80,
-      "image": "product8.jpg",
-      "description": "Description of Product8"
+      "image": "/images/Product130g/KongDuck.jpg",
+      "description": "130克/罐，未開罐可常溫保存兩年，開罐後請冰冷藏並盡速使用完畢。成分：整隻鴨、土雞心、土雞肝、維生素B1、維生素B12、牛磺酸",
+      "brandId": "1",
+      "category": "功夫"
     },
     {
       "id": 9,
-      "name": "Product9",
+      "name": "清燉-紐西蘭水鹿口味(每箱24入)",
       "price": 900,
       "stock": 90,
-      "image": "product9.jpg",
-      "description": "Description of Product9"
+      "image": "/images/ProductBox/NewDeerBox.jpg",
+      "description": "75克/罐，未開罐可常溫保存兩年，開罐後請冰冷藏並盡速使用完畢。成分：紐西蘭鹿肉、帶骨放飼雞腿、土雞心、土雞肝、綜合維生素(A、B1、B2、B6、D3、B12、C、E、K1)、牛磺酸",
+      "brandId": "2",
+      "category": "清燉"
     },
     {
       "id": 10,
-      "name": "Product10",
+      "name": "清燉-兔肉口味(每箱24入)",
       "price": 1000,
       "stock": 100,
-      "image": "product10.jpg",
-      "description": "Description of Product10"
+      "image": "/images/ProductBox/RabbitBox.jpg",
+      "description": "75克/罐，未開罐可常溫保存兩年，開罐後請冰冷藏並盡速使用完畢。成分：整隻兔、帶骨放飼雞腿、土雞心、土雞肝、綜合維生素(A、B1、B2、B6、D3、B12、C、E、K1)、牛磺酸",
+      "brandId": "2",
+      "category": "清燉"
     },
     {
       "id": 11,
-      "name": "Product11",
+      "name": "清燉-鹿野土雞口味(每箱24入)",
       "price": 1100,
       "stock": 110,
-      "image": "product11.jpg",
-      "description": "Description of Product11"
+      "image": "/images/ProductBox/WildChickenBox.jpg",
+      "description": "75克/罐，未開罐可常溫保存兩年，開罐後請冰冷藏並盡速使用完畢。成分：整隻土雞、土雞心、土雞肝、維他命B1、牛磺酸",
+      "brandId": "2",
+      "category": "清燉"
     },
     {
       "id": 12,
-      "name": "Product12",
+      "name": "清燉-烏骨雞口味(每箱24入)",
       "price": 1200,
       "stock": 120,
-      "image": "product12.jpg",
-      "description": "Description of Product12"
+      "image": "/images/ProductBox/BlackChickenBox.jpg",
+      "description": "75克/罐，未開罐可常溫保存兩年，開罐後請冰冷藏並盡速使用完畢。成分：整隻烏骨雞、烏骨雞心、土雞肝、維他命B1、牛磺酸",
+      "brandId": "2",
+      "category": "清燉"
     },
     {
       "id": 13,
-      "name": "Product13",
+      "name": "清燉-阿拉斯加野生鮭口味(每箱24入)",
       "price": 1300,
       "stock": 130,
-      "image": "product13.jpg",
-      "description": "Description of Product13"
+      "image": "/images/ProductBox/SamFishBox.jpg",
+      "description": "75克/罐，未開罐可常溫保存兩年，開罐後請冰冷藏並盡速使用完畢。成分：阿拉斯加野生白鮭、帶骨放飼雞腿、雞心、雞肝、維他命B1、牛磺酸",
+      "brandId": "2",
+      "category": "清燉"
     },
     {
       "id": 14,
-      "name": "Product14",
+      "name": "清燉-紐西蘭草飼牛口味(每箱24入)",
       "price": 1400,
       "stock": 140,
-      "image": "product14.jpg",
-      "description": "Description of Product14"
+      "image": "/images/ProductBox/NewCowBox.jpg",
+      "description": "75克/罐，未開罐可常溫保存兩年，開罐後請冰冷藏並盡速使用完畢。成分：紐西蘭草飼牛肉、雞骨、牛軟骨、牛心、牛肝、牛腎、維他命B1、牛磺酸",
+      "brandId": "2",
+      "category": "清燉"
     },
     {
       "id": 15,
-      "name": "Product15",
+      "name": "功夫-土雞煲(每箱12入)",
       "price": 1500,
       "stock": 150,
-      "image": "product15.jpg",
-      "description": "Description of Product15"
+      "image": "/images/ProductBox/KongChickenBox.jpg",
+      "description": "130克/罐，未開罐可常溫保存兩年，開罐後請冰冷藏並盡速使用完畢。成分：整隻土雞、土雞心、土雞肝、維他命B1、牛磺酸",
+      "brandId": "2",
+      "category": "功夫"
     },
     {
       "id": 16,
-      "name": "Product16",
+      "name": "功夫-鴨肉煲(每箱12入)",
       "price": 1600,
       "stock": 160,
-      "image": "product16.jpg",
-      "description": "Description of Product16"
+      "image": "/images/ProductBox/KongDuckBox.jpg",
+      "description": "130克/罐，未開罐可常溫保存兩年，開罐後請冰冷藏並盡速使用完畢。成分：整隻鴨、土雞心、土雞肝、維生素B1、維生素B12、牛磺酸",
+      "brandId": "2",
+      "category": "功夫"
     },
     {
       "id": 17,
-      "name": "Product17",
+      "name": "清燉-綜合口味4款各6罐(每箱24入)",
       "price": 1700,
       "stock": 170,
-      "image": "product17.jpg",
-      "description": "Description of Product17"
+      "image": "/images/ProductBox/Normal4InBox.jpg",
+      "description": "75克/罐，未開罐可常溫保存兩年，開罐後請冰冷藏並盡速使用完畢。【清燉生肉主食罐】鹿野土雞口味x6、烏骨雞口味x6、阿拉斯加野生鮭口味x6、紐西蘭草飼牛口味x6",
+      "brandId": "2",
+      "category": "清燉"
     },
     {
       "id": 18,
-      "name": "Product18",
+      "name": "清燉-綜合口味5款(每箱24入)",
       "price": 1800,
       "stock": 180,
-      "image": "product18.jpg",
-      "description": "Description of Product18"
+      "image": "/images/ProductBox/Normal5InBox.jpg",
+      "description": "75克/罐，未開罐可常溫保存兩年，開罐後請冰冷藏並盡速使用完畢。【清燉生肉主食罐】、鹿野土雞口味x5、烏骨雞口味x5、阿拉斯加野生鮭口味x5、紐西蘭草飼牛口味x5、【新品】兔肉口味x4",
+      "brandId": "2",
+      "category": "清燉"
     },
     {
       "id": 19,
-      "name": "Product19",
+      "name": "清燉-綜合口味6款(每箱24入)",
       "price": 1900,
       "stock": 190,
-      "image": "product19.jpg",
-      "description": "Description of Product19"
+      "image": "/images/ProductBox/Normal6InBox.jpg",
+      "description": "75克/罐，未開罐可常溫保存兩年，開罐後請冰冷藏並盡速使用完畢。【清燉生肉主食罐】、鹿野土雞口味x4、烏骨雞口味x4、阿拉斯加野生鮭口味x4、紐西蘭草飼牛口味x4、【新品】兔肉口味x4、【新品】紐西蘭水鹿口味x4",
+      "brandId": "2",
+      "category": "清燉"
     },
     {
       "id": 20,
-      "name": "Product20",
+      "name": "功夫-綜合口味(每箱12入)",
       "price": 2000,
       "stock": 200,
-      "image": "product20.jpg",
-      "description": "Description of Product20"
+      "image": "/images/ProductBox/Kong2InBox.jpg",
+      "description": "土雞煲x6、鴨肉煲x6",
+      "brandId": "2",
+      "category": "功夫"
+    }
+  ],
+  "carts": [
+    {
+      "userId": 2,
+      "items": [
+        {
+          "id": 1,
+          "name": "清燉-紐西蘭水鹿口味(75G/罐)",
+          "image": "/images/Product75g/NewDeer.jpg",
+          "price": 100,
+          "amount": 1
+        }
+      ]
+    },
+    {
+      "userId": 1,
+      "items": []
+    }
+  ],
+  "adoptionRequests": [
+    {
+      "userId": 2,
+      "animalId": 385302,
+      "timestamp": "2024-12-04T16:34:28.571Z"
+    },
+    {
+      "userId": 1,
+      "animalId": 381132,
+      "timestamp": "2024-12-04T17:10:17.075Z"
+    },
+    {
+      "userId": 2,
+      "animalId": 385601,
+      "timestamp": "2024-12-07T06:33:12.668Z"
+    },
+    {
+      "userId": 2,
+      "animalId": 385529,
+      "timestamp": "2024-12-07T06:42:40.202Z"
+    },
+    {
+      "userId": 2,
+      "animalId": 385303,
+      "timestamp": "2024-12-08T14:18:53.960Z"
+    }
+  ],
+  "orders": [
+    {
+      "orderId": 1,
+      "userId": 1,
+      "items": [
+        {
+          "productId": 1,
+          "name": "Product1",
+          "price": 100,
+          "amount": 2
+        }
+      ],
+      "totalPrice": 200,
+      "orderDate": "2024-12-05T12:00:00.000Z",
+      "status": "completed",
+      "shippingDetails": {
+        "address": "123 Example St, Example City",
+        "phone": "123456789",
+        "email": "user1@example.com"
+      }
+    },
+    {
+      "orderId": 2,
+      "userId": 2,
+      "items": [
+        {
+          "productId": 2,
+          "name": "Product2",
+          "price": 200,
+          "amount": 3
+        }
+      ],
+      "totalPrice": 600,
+      "orderDate": "2024-12-04T17:08:55.322Z",
+      "status": "completed",
+      "shippingDetails": {
+        "address": "Address3",
+        "phone": "0987654321",
+        "email": "user2@example.com"
+      }
+    },
+    {
+      "orderId": 3,
+      "userId": 1,
+      "items": [
+        {
+          "productId": 2,
+          "name": "Product2",
+          "price": 200,
+          "amount": 5
+        }
+      ],
+      "totalPrice": 1000,
+      "orderDate": "2024-12-04T17:09:28.848Z",
+      "status": "completed",
+      "shippingDetails": {
+        "address": "Address2",
+        "phone": "0987654321",
+        "email": "user1@example.com"
+      }
     }
   ]
 }
