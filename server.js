@@ -11,7 +11,7 @@ const schedule = require("node-schedule");
 const app = express();
 const PORT = 5000;
 const SECRET_KEY = "your_secret_key";
-
+app.use("/images", express.static("public/images"));
 app.use(bodyParser.json());
 app.use(
   cors({
