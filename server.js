@@ -27,6 +27,9 @@ const carts = data.carts;
 const adoptionRequests = data.adoptionRequests || [];
 const orders = data.orders || [];
 
+// New data for markers
+let markers = [];
+
 // Authenticate user and generate JWT token
 app.post("/login", (req, res) => {
   const { username, password } = req.body;
@@ -155,6 +158,64 @@ app.put("/update-member", authenticateToken, (req, res) => {
   res.json({ message: "Member updated successfully" });
 });
 
+// 獲取標記資料
+app.get("/markers", (req, res) => {
+  res.json(markers);
+});
+
+// New marker route
+app.post("/markers", (req, res) => {
+  const { title, position } = req.body;
+  const newMarker = {
+    id: markers.length + 1,
+    title,
+    position,
+    comments: [],
+  };
+  markers.push(newMarker);
+  data.markers = markers;
+  fs.writeFileSync("./data.json", JSON.stringify(data, null, 2));
+  res.json(newMarker);
+});
+
+// 添加留言
+app.post("/markers/:id/comments", authenticateToken, (req, res) => {
+  const markerId = parseInt(req.params.id);
+  const { comment } = req.body;
+  const userId = req.user.userId;
+  const user = users.find((u) => u.id === userId);
+
+  if (!user) {
+    return res.status(404).json({ message: "User not found" });
+  }
+
+  const marker = markers.find((m) => m.id === markerId);
+  if (marker) {
+    const commentWithUser = `${user.fullname}: ${comment}`;
+    marker.comments.push(commentWithUser);
+    data.markers = markers;
+    fs.writeFileSync("./data.json", JSON.stringify(data, null, 2));
+    res.json(marker);
+  } else {
+    res.status(404).send("Marker not found");
+  }
+});
+
+// 刪除標記
+app.delete("/markers/:id", (req, res) => {
+  const markerId = parseInt(req.params.id);
+  const markerIndex = markers.findIndex((m) => m.id === markerId);
+
+  if (markerIndex !== -1) {
+    markers.splice(markerIndex, 1);
+    data.markers = markers;
+    fs.writeFileSync("./data.json", JSON.stringify(data, null, 2));
+    res.json({ message: "Marker deleted successfully" });
+  } else {
+    res.status(404).send("Marker not found");
+  }
+});
+
 // 獲取用戶購物車資料
 app.get("/cart", authenticateToken, (req, res) => {
   const userId = req.user.userId;
@@ -166,6 +227,7 @@ app.get("/cart", authenticateToken, (req, res) => {
     res.json([]);
   }
 });
+
 // 新增或更新購物車項目
 app.post("/cart", authenticateToken, (req, res) => {
   const userId = req.user.userId;
@@ -245,6 +307,7 @@ app.post("/checkout", authenticateToken, (req, res) => {
 app.get("/check-auth", authenticateToken, (req, res) => {
   res.sendStatus(200); // 如果 token 有效，返回 200 狀態碼
 });
+
 // 初始化聊天訊息文件
 const chatDataFile = "./chatData.json";
 if (!fs.existsSync(chatDataFile)) {
@@ -289,6 +352,7 @@ io.on("connection", (socket) => {
     io.emit("message", message);
   });
 });
+
 // 設定處理認養請求的路由
 app.post("/adopt", authenticateToken, (req, res) => {
   const { userId, animalId } = req.body;
