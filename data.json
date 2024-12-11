@@ -268,15 +268,7 @@
   "carts": [
     {
       "userId": 2,
-      "items": [
-        {
-          "id": 1,
-          "name": "清燉-紐西蘭水鹿口味(75G/罐)",
-          "image": "/images/Product75g/NewDeer.jpg",
-          "price": 100,
-          "amount": 1
-        }
-      ]
+      "items": []
     },
     {
       "userId": 1,
@@ -371,5 +363,6 @@
         "email": "user1@example.com"
       }
     }
-  ]
+  ],
+  "markers": []
 }
