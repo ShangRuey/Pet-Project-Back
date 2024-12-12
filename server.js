@@ -16,7 +16,7 @@ app.use("/images", express.static("public/images"));
 app.use(bodyParser.json());
 app.use(
   cors({
-    origin: "*",
+    origin: "https://pet-project-back-dt26.onrender.com",
     credentials: true,
   })
 );
