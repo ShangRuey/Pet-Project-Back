@@ -14,6 +14,12 @@ const SECRET_KEY = "your_secret_key";
 
 app.use("/images", express.static("public/images"));
 app.use(bodyParser.json());
+
+app.use((req, res, next) => {
+  console.log("Received cookies:", req.cookies);
+  next();
+});
+
 app.use(
   cors({
     origin: "https://react-pet-project-eop3.onrender.com",
