@@ -11,18 +11,11 @@ const schedule = require("node-schedule");
 const app = express();
 const PORT = 5000;
 const SECRET_KEY = "your_secret_key";
-
 app.use("/images", express.static("public/images"));
 app.use(bodyParser.json());
-
-app.use((req, res, next) => {
-  console.log("Received cookies:", req.cookies);
-  next();
-});
-
 app.use(
   cors({
-    origin: "https://react-pet-project-eop3.onrender.com",
+    origin: "http://localhost:5173",
     credentials: true,
   })
 );
@@ -52,7 +45,6 @@ app.post("/login", (req, res) => {
       httpOnly: true,
       secure: false, // 在開發時設為 false，生產環境中設為 true
       sameSite: "strict",
-      path: "/",
     });
     res.json({ token, message: "Login successful" });
   } else {
@@ -68,8 +60,7 @@ app.post("/logout", (req, res) => {
 
 // Protect route with JWT
 const authenticateToken = (req, res, next) => {
-  const token =
-    req.headers.authorization && req.headers.authorization.split(" ")[1];
+  const token = req.cookies.token;
 
   if (!token) return res.status(401).json({ message: "Token required" });
 
@@ -347,7 +338,7 @@ app.get("/messages", (req, res) => {
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: "*",
+    origin: "http://localhost:5173",
     methods: ["GET", "POST"],
   },
 });
