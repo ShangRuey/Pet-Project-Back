@@ -46,6 +46,7 @@ app.post("/login", (req, res) => {
       httpOnly: true,
       secure: false, // 在開發時設為 false，生產環境中設為 true
       sameSite: "strict",
+      path: "/",
     });
     res.json({ token, message: "Login successful" });
   } else {
