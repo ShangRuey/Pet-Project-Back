@@ -9,13 +9,14 @@ const { Server } = require("socket.io");
 const schedule = require("node-schedule");
 
 const app = express();
-const PORT = 5000;
-const SECRET_KEY = "your_secret_key";
+const PORT = process.env.PORT || 5000;
+const SECRET_KEY = process.env.SECRET_KEY || "your_secret_key";
+
 app.use("/images", express.static("public/images"));
 app.use(bodyParser.json());
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: "*",
     credentials: true,
   })
 );
