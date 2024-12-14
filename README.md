@@ -4,6 +4,15 @@
 - 服務端點: `http://localhost:5000`
 - API 版本: `1.0`
 
+### 安裝專案Dependencies
+```
+npm install
+```
+### 執行專案
+```
+node server.js
+```
+
 ## 驗證
 
 我們使用 JWT Token 來驗證 API 請求。部分路由需要 Header 中包含你的 Token。
