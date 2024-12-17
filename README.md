@@ -2,7 +2,15 @@
 
 ## 基本信息
 - 服務端點: `http://localhost:5000`
-- API 版本: `1.0`
+- 使用 express 建置
+- 使用 CORS 防止跨域攻擊
+- 使用 body-parser 解析 客戶端傳送來的 JSON數據
+- 使用 cookie-parser 解析 客戶端傳送來的cookie
+- 使用 JWT 做身分驗證
+- 使用Web-Scoket 做即時通訊
+- 使用node-schedule 定時清除聊天室歷史訊息
+
+
 
 ### 安裝專案Dependencies
 ```
